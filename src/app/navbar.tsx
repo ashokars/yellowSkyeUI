@@ -1,7 +1,6 @@
 "use client"
 import { Fragment } from 'react'
 import { Disclosure, Menu, Transition } from '@headlessui/react'
-import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline'
 
 function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(' ')
@@ -12,7 +11,7 @@ export default function NavBar() {
     <Disclosure as="nav" className="bg-black font-primary">
       {({ open }) => (
         <>
-          <div className="mx-auto max-w-7xl px-2 md:px-6 lg:px-8">
+          <div className="mx-auto max-w-7xl px-4 lg:px-0">
             <div className="relative flex h-16 items-center justify-between">
               <div className="flex flex-1 sm:items-stretch sm:justify-start">
                 <div className="flex flex-shrink-0 items-center">
