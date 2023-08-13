@@ -1,5 +1,6 @@
 export const mockProjectData = [
   {
+    id: 1,
     projectName: "Intellion Park",
     location: "Navi Mumbai",
     imageCount: 100,
@@ -10,6 +11,7 @@ export const mockProjectData = [
     lod: "01 Oct 2022",
   },
   {
+    id:2,
     projectName: "Spire",
     location: "Hyderabad",
     imageCount: 88,
@@ -20,6 +22,7 @@ export const mockProjectData = [
     lod: "01 Nov 2022",
   },
   {
+    id:3,
     projectName: "Prestige",
     location: "Mumbai",
     imageCount: 92,
@@ -30,6 +33,7 @@ export const mockProjectData = [
     lod: "22 Apr 2023",
   },
   {
+    id:4,
     projectName: "Lemon",
     location: "Gurgaon",
     imageCount: 142,
@@ -40,6 +44,7 @@ export const mockProjectData = [
     lod: "11 Apr 2023",
   },
   {
+    id:5,
     projectName: "Tidel Park",
     location: "Chennai",
     imageCount: 2578,
@@ -50,6 +55,7 @@ export const mockProjectData = [
     lod: "21 Jul 2023",
   },
   {
+    id:6,
     projectName: "Info Park",
     location: "Kochi",
     imageCount: 12,

@@ -11,7 +11,7 @@ const navigation = [
   { name: "Panaromas", href: "#" },
   { name: "Virtual tours", href: "#" },
   { name: "Live videos", href: "#" },
-  { name: "CMR", href: "#" },
+  { name: "CMR", href: "/projects/cmr" },
   { name: "Share", href: "#" },
   { name: "Order details", href: "#" },
 ];
@@ -40,7 +40,7 @@ export default function FloatNav() {
                           pathname === item.href
                             ? "text-white"
                             : "border-transparent text-[#B0DFF4] hover:text-white hover:border-[#FFF205]",
-                          "inline-flex items-center px-1 pt-1 border-b-4 text-md font-medium"
+                          "inline-flex items-center px-1 pt-1 border-b-4 border-[#FFF205] text-md font-medium"
                         )}
                         aria-current={
                           pathname === item.href ? "page" : undefined

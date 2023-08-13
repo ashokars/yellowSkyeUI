@@ -19,11 +19,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        {" "}
+        <main data-theme="light" className="bg-white">
         <Suspense>
           <NavBar />
         </Suspense>
-        {children}
+          {children}
+        </main>
       </body>
     </html>
   );

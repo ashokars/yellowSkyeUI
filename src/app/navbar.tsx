@@ -8,7 +8,7 @@ function classNames(...classes: string[]) {
 
 export default function NavBar() {
   return (
-    <Disclosure as="nav" className="bg-black font-primary">
+    <Disclosure as="nav" className="sticky top-0 z-50 bg-black font-primary">
       {({ open }) => (
         <>
           <div className="mx-auto max-w-7xl px-4 lg:px-0">
@@ -17,7 +17,7 @@ export default function NavBar() {
                 <div className="flex flex-shrink-0 items-center">
                   <img
                     className="h-8 w-auto"
-                    src="./assets/dexwhite.svg"
+                    src="/assets/dexwhite.svg"
                     alt="Dex Logo"
                   />
                 </div>
@@ -33,8 +33,8 @@ export default function NavBar() {
                 >
                   <img
                     className="h-8 w-auto"
-                    src="./assets/yellowskye.svg"
-                    alt="Dex Logo"
+                    src="/assets/yellowskye.svg"
+                    alt="yellowSkye Logo"
                   />
                 </div>
 
