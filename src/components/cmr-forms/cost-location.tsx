@@ -2,6 +2,7 @@ import { useRef, useState } from "react";
 import CostDetailForm from "./cost-details";
 import LocationDetailForm from "./location-detail";
 import ActivityDetailForm from "./activity-detail";
+import MonitoringFrequencyForm from "./monitoring-frequency";
 
 export default function CostLocationForm() {
   //logical
@@ -42,6 +43,8 @@ export default function CostLocationForm() {
         return <LocationDetailForm onSubmit={proceedForm} />;
       case 3:
         return <ActivityDetailForm onSubmit={proceedForm} />;
+      case 4:
+        return <MonitoringFrequencyForm onSubmit={proceedForm}/>
     }
   };
 
@@ -55,7 +58,7 @@ export default function CostLocationForm() {
 
   return (
     <div className="py-6 h-5/6">
-      <h2 className="text-base text-xl font-semibold leading-7 text-gray-900 pb-2">
+      <h2 className="text-base text-xl font-semibold leading-7 text-[#222222] pb-2">
         Cost, location and activities
       </h2>
       <div className="flex flex-wraptext-sm">

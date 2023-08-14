@@ -39,7 +39,7 @@ export default function CMR() {
   };
 
   return (
-    <div className="flex h-screen w-full flex-col items-center bg-white p-4">
+    <div className="flex h-full w-full flex-col items-center bg-white p-4">
       <FloatNav />
       <div className="py-4 md:w-11/12 items-center">
         <div className="flex flex-wrap text-[#666666] text-sm">
