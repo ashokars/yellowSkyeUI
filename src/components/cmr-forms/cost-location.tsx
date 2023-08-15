@@ -1,10 +1,14 @@
-import { useRef, useState } from "react";
+import { useState } from "react";
 import CostDetailForm from "./cost-details";
 import LocationDetailForm from "./location-detail";
 import ActivityDetailForm from "./activity-detail";
 import MonitoringFrequencyForm from "./monitoring-frequency";
 
-export default function CostLocationForm() {
+interface Iprops {
+  onSubmit: () => void;
+}
+
+export default function CostLocationForm({ onSubmit }: Iprops) {
   //logical
   const [files, setFiles] = useState({
     costDetail: null,
@@ -24,11 +28,11 @@ export default function CostLocationForm() {
         setCurrentStep(3);
         break;
       case "activityDetail":
-        setFiles({ ...files, costDetail: file });
         setCurrentStep(4);
         break;
       case "monitoringFrequency":
-        //add to update parent state
+        setFiles({ ...files, costDetail: file });
+        onSubmit();
         break;
       default:
         break;
@@ -44,7 +48,7 @@ export default function CostLocationForm() {
       case 3:
         return <ActivityDetailForm onSubmit={proceedForm} />;
       case 4:
-        return <MonitoringFrequencyForm onSubmit={proceedForm}/>
+        return <MonitoringFrequencyForm onSubmit={proceedForm} />;
     }
   };
 

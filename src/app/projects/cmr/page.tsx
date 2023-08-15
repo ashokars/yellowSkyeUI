@@ -2,6 +2,7 @@
 import FloatNav from "@/components/admin/floatnav";
 import ConfigureProjectForm from "@/components/cmr-forms/configure-project";
 import CostLocationForm from "@/components/cmr-forms/cost-location";
+import TimelinesQuantitiesForm from "@/components/cmr-forms/timelines-quantities";
 import { useState } from "react";
 
 export default function CMR() {
@@ -13,7 +14,9 @@ export default function CMR() {
       case 1:
         return <ConfigureProjectForm onSubmit={() => setCurrentStep(2)} />;
       case 2:
-        return <CostLocationForm />;
+        return <CostLocationForm onSubmit={() => setCurrentStep(3)} />;
+      default:
+        return <TimelinesQuantitiesForm onSubmit={() => setCurrentStep(3)} />;
     }
   };
 
