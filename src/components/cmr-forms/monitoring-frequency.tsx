@@ -73,7 +73,7 @@ export default function MonitoringFrequencyForm({ onSubmit }: Iprops) {
             </div>
           </div>
           <button
-            onClick={() => onSubmit("locationDetail", file)}
+            onClick={() => onSubmit("monitoringFrequency", file)}
             className="float-right text-white bg-[#228DBB] focus:outline-none hover:bg-[#1f6d8f] font-medium rounded-lg text-sm lg:w-24 sm:w-auto px-4 py-2 text-center"
           >
             Next
