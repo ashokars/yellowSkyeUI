@@ -1,5 +1,4 @@
 "use client";
-
 import { ProjectProps } from "@/types";
 
 interface ProjectCardProps {
@@ -34,9 +33,7 @@ export default function ProjectCards({ project }: ProjectCardProps) {
                   />
                 </svg>
 
-                <p className="text-sm px-2 font-semibold">
-                  {project.imageCount}
-                </p>
+                <p className="text-sm px-2 font-semibold">{120}</p>
               </div>
             </div>
             <div className="text-[#545454] text-xs">
@@ -57,9 +54,7 @@ export default function ProjectCards({ project }: ProjectCardProps) {
                   />
                 </svg>
 
-                <p className="text-sm px-2 font-semibold">
-                  {project.panaromaCount}
-                </p>
+                <p className="text-sm px-2 font-semibold">{20}</p>
               </div>
             </div>
             <div className="text-[#545454] text-xs">
@@ -80,9 +75,7 @@ export default function ProjectCards({ project }: ProjectCardProps) {
                   />
                 </svg>
 
-                <p className="text-sm px-2 font-semibold">
-                  {project.virtualTourCount}
-                </p>
+                <p className="text-sm px-2 font-semibold">{23}</p>
               </div>
             </div>
             <div className="text-[#545454] text-xs">
@@ -102,9 +95,7 @@ export default function ProjectCards({ project }: ProjectCardProps) {
                   />
                 </svg>
 
-                <p className="text-sm px-2 font-semibold">
-                  {project.videosCount}
-                </p>
+                <p className="text-sm px-2 font-semibold">{130}</p>
               </div>
             </div>
           </div>
@@ -118,11 +109,9 @@ export default function ProjectCards({ project }: ProjectCardProps) {
         </div>
       </div>
       <footer className="static bottom-0 h-1/5 flex items-center bg-[#D5E0E9]">
-        <p className="text-xs text-black font-semibold px-8">
-          Orders: {project.ordersCount}
-        </p>
+        <p className="text-xs text-black font-semibold px-8">Orders: {210}</p>
         <p className="text-xs md:pl-12 sm:pl-6 text-[#545454]">
-          Last Order Date: {project.lod}
+          Last Order Date: {22}
         </p>
       </footer>
     </div>

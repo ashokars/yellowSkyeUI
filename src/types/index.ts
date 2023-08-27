@@ -1,11 +1,5 @@
-export interface ProjectProps {
-  projectName: string;
-  location: string;
-  imageCount: number;
-  panaromaCount: number;
-  virtualTourCount: number;
-  videosCount: number;
-  ordersCount: number;
-  lod: string;
-  imgurl?: string;
-}
+"use client"
+
+export * as IService from './services';
+export *  from './enum';
+export * from './props';
