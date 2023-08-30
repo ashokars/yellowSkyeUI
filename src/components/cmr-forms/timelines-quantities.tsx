@@ -1,6 +1,7 @@
 import { useState } from "react";
 import FieldMappingForm from "./field-mapping";
 import QuantitiesDetailForm from "./quantities-detail";
+import CostDetailForm from "./cost-details";
 
 interface Iprops {
   onSubmit: () => void;
@@ -9,17 +10,19 @@ interface Iprops {
 export default function TimelinesQuantitiesForm({ onSubmit }: Iprops) {
   //logical
   const [files, setFiles] = useState({
+    costWeightage: null,
     quantitiesDetail: null,
   });
   const [currentStep, setCurrentStep] = useState(1);
 
   const proceedForm = (step: string, file: any) => {
     switch (step) {
-      case "fieldMapping":
+      case "costDetail":
         setCurrentStep(2);
+        setFiles({ ...files, costWeightage: file });
         break;
       case "quantitiesDetail":
-        setFiles({ quantitiesDetail: file });
+        setFiles({ ...files, quantitiesDetail: file });
         break;
       default:
         break;
@@ -29,7 +32,7 @@ export default function TimelinesQuantitiesForm({ onSubmit }: Iprops) {
   const ConditionalFormRendering = () => {
     switch (currentStep) {
       case 1:
-        return <FieldMappingForm onSubmit={proceedForm} />;
+        return <CostDetailForm onSubmit={proceedForm} />;
       case 2:
         return <QuantitiesDetailForm onSubmit={proceedForm} />;
       default:
@@ -53,7 +56,7 @@ export default function TimelinesQuantitiesForm({ onSubmit }: Iprops) {
       </h2>
       <div className="flex flex-wraptext-sm">
         <div className="flex pb-2 lg:basis-1/6 md:basis-2/12 w-full">
-          <div className={getClasses(1)}>1. Field mapping</div>
+          <div className={getClasses(1)}>1. Cost details</div>
         </div>
         <div className="flex pb-2 lg:basis-2/6 md:basis-4/12 w-full">
           <div className={getClasses(2)}>2. Project plan and quantities</div>

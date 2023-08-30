@@ -1,18 +1,37 @@
 import { useState } from "react";
+import LocationPreview from "./location-preview";
+import { csvToJson } from "@/utils";
 
 interface Iprops {
-  onSubmit: (step: string, file: any) => void;
+  onSubmit: (step: string) => void;
 }
 
 export default function LocationDetailForm({ onSubmit }: Iprops) {
   const [file, setFile] = useState<any>();
+  const [fileContent, setFileContent] = useState<{}[]>([]);
+  const [isPreview, setPreview] = useState<boolean>(false);
 
-  const handleChange = (event: any) => {
-    if (event.target.files && event.target.files[0]) {
-      const i = event.target.files[0];
-      setFile(i);
-    }
+  //on file upload get the file content as text
+  const handleChange = async (event: any) => {
+    event.preventDefault();
+    const reader = new FileReader();
+    reader.onload = async (e: any) => {
+      const text = e.target.result;
+      setFileContent(csvToJson(text));
+    };
+    const i = event.target.files[0];
+    reader.readAsText(i);
+    setFile(i);
   };
+
+  if (isPreview)
+    return (
+      <LocationPreview
+        locationDetails={fileContent}
+        onCancel={() => setPreview(false)}
+        onSubmit={() => onSubmit("locationDetail")}
+      />
+    );
 
   return (
     <div className="grid lg:grid-cols-2 md:grid-cols-1 gap-2">
@@ -31,26 +50,31 @@ export default function LocationDetailForm({ onSubmit }: Iprops) {
             >
               Location template
             </label>
-            <button
-              type="button"
-              className="w-full justify-center text-white bg-[#228DBB] hover:bg-[#1f6d8f] font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center mr-2 mb-2"
+            <a
+              href="/assets/templates/location_template.csv"
+              download="location_template.csv"
             >
-              Download location template
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth={2}
-                stroke="currentColor"
-                className="w-5 h-5 ml-2 -mr-1"
+              <button
+                type="button"
+                className="w-full justify-center text-white bg-[#228DBB] hover:bg-[#1f6d8f] font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center mr-2 mb-2"
               >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3"
-                />
-              </svg>
-            </button>
+                Download location template
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth={2}
+                  stroke="currentColor"
+                  className="w-5 h-5 ml-2 -mr-1"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3"
+                  />
+                </svg>
+              </button>
+            </a>
           </div>
           <div className="mb-2">
             <label
@@ -119,10 +143,13 @@ export default function LocationDetailForm({ onSubmit }: Iprops) {
             )}
           </div>
           <button
-            onClick={() => onSubmit("locationDetail", file)}
-            className="float-right text-white bg-[#228DBB] focus:outline-none hover:bg-[#1f6d8f] font-medium rounded-lg text-sm lg:w-24 sm:w-auto px-4 py-2 text-center"
+            disabled={!file}
+            onClick={() => setPreview(true)}
+            className={`float-right text-white ${
+              file ? "bg-[#228DBB] hover:bg-[#1f6d8f]" : "bg-[#228DBB]/70"
+            } focus:outline-none font-medium rounded-lg text-sm lg:w-24 sm:w-auto px-4 py-2 text-center`}
           >
-            Next
+            Preview
           </button>
         </form>
       </div>

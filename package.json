@@ -11,22 +11,28 @@
   "dependencies": {
     "@headlessui/react": "^1.7.16",
     "@heroicons/react": "^2.0.18",
+    "@tanstack/react-table": "^8.9.3",
     "@types/node": "20.4.9",
     "@types/react": "18.2.20",
     "@types/react-dom": "18.2.7",
     "autoprefixer": "10.4.14",
     "axios": "^1.5.0",
+    "csvtojson": "^2.0.10",
     "eslint": "8.46.0",
     "eslint-config-next": "13.4.13",
+    "fs": "^0.0.1-security",
     "js-cookie": "^3.0.5",
     "next": "13.4.13",
+    "papaparse": "^5.4.1",
     "postcss": "8.4.27",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "react-papaparse": "^4.1.0",
     "tailwindcss": "3.3.3",
     "typescript": "5.1.6"
   },
   "devDependencies": {
-    "@types/js-cookie": "^3.0.3"
+    "@types/js-cookie": "^3.0.3",
+    "@types/papaparse": "^5.3.8"
   }
 }

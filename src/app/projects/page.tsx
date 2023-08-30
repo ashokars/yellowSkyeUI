@@ -41,7 +41,7 @@ export default function Projects() {
           </div>
           <div className="mx-2">
             <Link
-              href={"/projects/cmr"}
+              href={"#"}
               type="button"
               className="text-white bg-[#228DBB] hover:bg-[#1f6d8f] focus:outline-none font-medium rounded-full text-sm p-2.5 text-center inline-flex items-center mr-2"
             >

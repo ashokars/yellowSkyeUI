@@ -1,20 +1,23 @@
 "use client";
 import FloatNav from "@/components/admin/floatnav";
 import ConfigureProjectForm from "@/components/cmr-forms/configure-project";
-import CostLocationForm from "@/components/cmr-forms/location-activity";
+import LocationActivityForm from "@/components/cmr-forms/location-activity";
 import TimelinesQuantitiesForm from "@/components/cmr-forms/timelines-quantities";
+import { useCmrContext } from "@/context";
+import { useParams } from "next/navigation";
 import { useState } from "react";
 
 export default function CMR() {
   //logical
   const [currentStep, setCurrentStep] = useState(1);
 
+
   const ConditionalFormRendering = () => {
     switch (currentStep) {
       case 1:
         return <ConfigureProjectForm onSubmit={() => setCurrentStep(2)} />;
       case 2:
-        return <CostLocationForm onSubmit={() => setCurrentStep(3)} />;
+        return <LocationActivityForm onSubmit={() => setCurrentStep(3)} />;
       default:
         return <TimelinesQuantitiesForm onSubmit={() => setCurrentStep(3)} />;
     }
@@ -42,9 +45,9 @@ export default function CMR() {
   };
 
   return (
-    <div className="flex h-full w-full flex-col items-center bg-white p-4">
+    <div className="flex h-full w-screen flex-col items-center bg-white p-4">
       <FloatNav />
-      <div className="py-4 md:w-11/12 items-center">
+      <div className="py-4 md:w-11/12 w-full items-center">
         <div className="flex flex-wrap text-[#666666] text-sm">
           <div className="flex pb-2 lg:basis-1/6 md:basis-3/12 w-full">
             <div

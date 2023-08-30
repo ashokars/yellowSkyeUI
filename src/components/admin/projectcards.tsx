@@ -1,5 +1,6 @@
 "use client";
 import { ProjectProps } from "@/types";
+import Link from "next/link";
 
 interface ProjectCardProps {
   project: ProjectProps;
@@ -7,6 +8,7 @@ interface ProjectCardProps {
 
 export default function ProjectCards({ project }: ProjectCardProps) {
   return (
+    <Link  href={`/projects/cmr/${project.id}`}>
     <div className="max-w-md rounded overflow-hidden shadow-lg h-48 cursor-pointer">
       <div className="flex h-4/5">
         <div className="pl-4 py-2 w-6/12">
@@ -115,5 +117,6 @@ export default function ProjectCards({ project }: ProjectCardProps) {
         </p>
       </footer>
     </div>
+    </Link>
   );
 }
