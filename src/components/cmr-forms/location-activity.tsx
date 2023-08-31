@@ -1,37 +1,33 @@
 import { useState } from "react";
-import CostDetailForm from "./cost-details";
 import LocationDetailForm from "./location-detail";
 import ActivityDetailForm from "./activity-detail";
 import MonitoringFrequencyForm from "./monitoring-frequency";
+import FieldMappingForm from "./field-mapping";
 
 interface Iprops {
   onSubmit: () => void;
 }
 
-export default function CostLocationForm({ onSubmit }: Iprops) {
+export default function LocationActivityForm({ onSubmit }: Iprops) {
   //logical
   const [files, setFiles] = useState({
-    costDetail: null,
-    locationDetail: null,
-    activityDetail: null,
+    fieldMapping: null,
   });
   const [currentStep, setCurrentStep] = useState(1);
 
-  const proceedForm = (step: string, file: any) => {
+  const proceedForm = (step: string, file?: any) => {
     switch (step) {
-      case "costDetail":
-        setFiles({ ...files, costDetail: file });
+      case "locationDetail":
         setCurrentStep(2);
         break;
-      case "locationDetail":
-        setFiles({ ...files, locationDetail: file });
+      case "activityDetail":
         setCurrentStep(3);
         break;
-      case "activityDetail":
+      case "monitoringFrequency":
         setCurrentStep(4);
         break;
-      case "monitoringFrequency":
-        setFiles({ ...files, costDetail: file });
+      case "fieldMapping":
+        setFiles({ ...files, fieldMapping: file });
         onSubmit();
         break;
       default:
@@ -42,13 +38,13 @@ export default function CostLocationForm({ onSubmit }: Iprops) {
   const ConditionalFormRendering = () => {
     switch (currentStep) {
       case 1:
-        return <CostDetailForm onSubmit={proceedForm} />;
-      case 2:
         return <LocationDetailForm onSubmit={proceedForm} />;
-      case 3:
+      case 2:
         return <ActivityDetailForm onSubmit={proceedForm} />;
-      case 4:
+      case 3:
         return <MonitoringFrequencyForm onSubmit={proceedForm} />;
+      case 4:
+        return <FieldMappingForm onSubmit={proceedForm} />;
     }
   };
 
@@ -65,18 +61,18 @@ export default function CostLocationForm({ onSubmit }: Iprops) {
       <h2 className="text-base text-xl font-semibold leading-7 text-[#222222] pb-2">
         Cost, location and activities
       </h2>
-      <div className="flex flex-wraptext-sm">
+      <div className="flex lg:flex-row flex-col text-sm">
         <div className="flex pb-2 lg:basis-1/6 md:basis-2/12 w-full">
-          <div className={getClasses(1)}>1. Cost details</div>
+          <div className={getClasses(1)}>1. Location details</div>
         </div>
         <div className="flex pb-2 lg:basis-1/6 md:basis-3/12 w-full">
-          <div className={getClasses(2)}>2. Location details</div>
+          <div className={getClasses(2)}>2. Activity details</div>
         </div>
         <div className="flex pb-2 lg:basis-1/6 md:basis-3/12 w-full">
-          <div className={getClasses(3)}>3. Activity details</div>
+          <div className={getClasses(3)}>3. Monitoring frequency</div>
         </div>
         <div className="flex pb-2 lg:basis-2/6 md:basis-3/12 w-full">
-          <div className={getClasses(4)}>4. Monitoring frequency</div>
+          <div className={getClasses(4)}>4. Field mapping</div>
         </div>
       </div>
       {ConditionalFormRendering()}

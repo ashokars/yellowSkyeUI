@@ -1,8 +1,16 @@
+"use client";
+
 import ProjectCards from "@/components/admin/projectcards";
-import { mockProjectData } from "./mocks";
 import Link from "next/link";
+import { API_CONSTANTS } from "@/constants";
+import { useAxios } from "@/hooks";
+import { ProjectProps } from "@/types";
+import { Key } from "react";
 
 export default function Projects() {
+  //api calls
+  const { data: project } = useAxios({ url: API_CONSTANTS.project });
+
   return (
     <div className="flex h-screen flex-col items-center bg-white justify-between p-4">
       <div className="w-11/12 font-primary text-md mx-4">
@@ -33,7 +41,7 @@ export default function Projects() {
           </div>
           <div className="mx-2">
             <Link
-              href={"/projects/cmr"}
+              href={"#"}
               type="button"
               className="text-white bg-[#228DBB] hover:bg-[#1f6d8f] focus:outline-none font-medium rounded-full text-sm p-2.5 text-center inline-flex items-center mr-2"
             >
@@ -56,9 +64,10 @@ export default function Projects() {
           </h2>
         </div>
         <div className="grid lg:grid-cols-3 lg:gap-3 md:grid-cols-2 md:gap-2">
-          {mockProjectData.map((project, i) => (
-            <ProjectCards key={i} project={project} />
-          ))}
+          {project &&
+            project.map((p: ProjectProps, i: Key | null | undefined) => (
+              <ProjectCards key={i} project={p} />
+            ))}
         </div>
       </div>
     </div>

@@ -1,7 +1,7 @@
 "use client";
 import FloatNav from "@/components/admin/floatnav";
 import ConfigureProjectForm from "@/components/cmr-forms/configure-project";
-import CostLocationForm from "@/components/cmr-forms/cost-location";
+import CostLocationForm from "@/components/cmr-forms/location-activity";
 import TimelinesQuantitiesForm from "@/components/cmr-forms/timelines-quantities";
 import { useState } from "react";
 
