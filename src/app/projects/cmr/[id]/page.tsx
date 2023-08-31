@@ -4,13 +4,13 @@ import ConfigureProjectForm from "@/components/cmr-forms/configure-project";
 import LocationActivityForm from "@/components/cmr-forms/location-activity";
 import TimelinesQuantitiesForm from "@/components/cmr-forms/timelines-quantities";
 import { useCmrContext } from "@/context";
+import { CmrContextProvider } from "@/context/cmrContext";
 import { useParams } from "next/navigation";
 import { useState } from "react";
 
 export default function CMR() {
   //logical
   const [currentStep, setCurrentStep] = useState(1);
-
 
   const ConditionalFormRendering = () => {
     switch (currentStep) {
@@ -47,47 +47,49 @@ export default function CMR() {
   return (
     <div className="flex h-full w-screen flex-col items-center bg-white p-4">
       <FloatNav />
-      <div className="py-4 md:w-11/12 w-full items-center">
-        <div className="flex flex-wrap text-[#666666] text-sm">
-          <div className="flex pb-2 lg:basis-1/6 md:basis-3/12 w-full">
-            <div
-              className={`${
-                numberBorder[customClassSelector(1)]
-              } flex h-5 w-5 shrink-0 grow-0 items-center justify-center rounded-full`}
-            >
-              1
+      <CmrContextProvider>
+        <div className="py-4 md:w-11/12 w-full items-center">
+          <div className="flex flex-wrap text-[#666666] text-sm">
+            <div className="flex pb-2 lg:basis-1/6 md:basis-3/12 w-full">
+              <div
+                className={`${
+                  numberBorder[customClassSelector(1)]
+                } flex h-5 w-5 shrink-0 grow-0 items-center justify-center rounded-full`}
+              >
+                1
+              </div>
+              <div className={`px-2 ${textStyle[customClassSelector(1)]}`}>
+                Configure project
+              </div>
             </div>
-            <div className={`px-2 ${textStyle[customClassSelector(1)]}`}>
-              Configure project
+            <div className="flex pb-2 lg:basis-1/4 md:basis-4/12 w-full">
+              <div
+                className={`${
+                  numberBorder[customClassSelector(2)]
+                } flex h-5 w-5 shrink-0 grow-0 items-center justify-center rounded-full`}
+              >
+                2
+              </div>
+              <div className={`px-2 ${textStyle[customClassSelector(2)]}`}>
+                Cost, location and activities
+              </div>
+            </div>
+            <div className="flex pb-2 lg:basis-1/4 md:basis-5/12 w-full">
+              <div
+                className={`${
+                  numberBorder[customClassSelector(3)]
+                } flex h-5 w-5 shrink-0 grow-0 items-center justify-center rounded-full`}
+              >
+                3
+              </div>
+              <div className={`px-2 ${textStyle[customClassSelector(3)]}`}>
+                Project timelines and quantities
+              </div>
             </div>
           </div>
-          <div className="flex pb-2 lg:basis-1/4 md:basis-4/12 w-full">
-            <div
-              className={`${
-                numberBorder[customClassSelector(2)]
-              } flex h-5 w-5 shrink-0 grow-0 items-center justify-center rounded-full`}
-            >
-              2
-            </div>
-            <div className={`px-2 ${textStyle[customClassSelector(2)]}`}>
-              Cost, location and activities
-            </div>
-          </div>
-          <div className="flex pb-2 lg:basis-1/4 md:basis-5/12 w-full">
-            <div
-              className={`${
-                numberBorder[customClassSelector(3)]
-              } flex h-5 w-5 shrink-0 grow-0 items-center justify-center rounded-full`}
-            >
-              3
-            </div>
-            <div className={`px-2 ${textStyle[customClassSelector(3)]}`}>
-              Project timelines and quantities
-            </div>
-          </div>
+          {ConditionalFormRendering()}
         </div>
-        {ConditionalFormRendering()}
-      </div>
+      </CmrContextProvider>
     </div>
   );
 }

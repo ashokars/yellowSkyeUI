@@ -4,6 +4,7 @@ import { data } from "autoprefixer";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import Spinner from "../spinner";
+import { useCmrContext } from "@/context";
 
 interface Iprops {
   onSubmit: () => void;
@@ -21,6 +22,7 @@ const classNames = {
 export default function ConfigureProjectForm({ onSubmit }: Iprops) {
   //get params and fetch data
   const params = useParams();
+  const {setProjectName} = useCmrContext();
   const {
     data: project,
     loading,
@@ -49,6 +51,9 @@ export default function ConfigureProjectForm({ onSubmit }: Iprops) {
 
   useEffect(() => {
     if (project) {
+      //set values to context and initiate local state
+      console.log(project);
+      setProjectName(project?.projectName );
       const defaultValue = {
         projectName: project?.projectName || "",
         location: project?.location || "",
