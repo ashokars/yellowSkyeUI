@@ -6,16 +6,16 @@ interface Iprops {
   onSubmit: () => void;
   onNext: () => void;
   onCancel: () => void;
-  locationDetails: {}[];
+  activityDetails: {}[];
 }
 
-export default function LocationPreview({
+export default function ActivityPreview({
   loading,
   readOnly,
   onSubmit,
   onCancel,
   onNext,
-  locationDetails,
+  activityDetails,
 }: Iprops) {
   return (
     <div>
@@ -24,22 +24,16 @@ export default function LocationPreview({
           <thead className="text-xs text-[#228DBB] md:h-12 uppercase bg-[#E0EDF2]">
             <tr>
               <th scope="col" className="px-6 py-3">
-                Location 1
+                Stage
               </th>
               <th scope="col" className="px-6 py-3">
-                Location 2
+                Group
               </th>
               <th scope="col" className="px-6 py-3">
-                Location 3
+                Activity
               </th>
               <th scope="col" className="px-6 py-3">
-                Location 4
-              </th>
-              <th scope="col" className="px-6 py-3">
-                Location 5
-              </th>
-              <th scope="col" className="px-6 py-3">
-                Location 6
+                Units
               </th>
             </tr>
           </thead>
@@ -51,8 +45,8 @@ export default function LocationPreview({
                 </td>
               </tr>
             ) : (
-              locationDetails &&
-              locationDetails.map((loc: any, i) => (
+              activityDetails &&
+              activityDetails.map((act: any, i) => (
                 <tr
                   key={i}
                   className={`${
@@ -63,13 +57,11 @@ export default function LocationPreview({
                     scope="row"
                     className={`px-6 py-4 font-medium text-gray-900 whitespace-nowrap`}
                   >
-                    {loc.location1}
+                    {act.stageName}
                   </th>
-                  <td className="px-6 py-4">{loc.location2}</td>
-                  <td className="px-6 py-4">{loc.location3}</td>
-                  <td className="px-6 py-4">{loc.location4}</td>
-                  <td className="px-6 py-4">{loc.location5}</td>
-                  <td className="px-6 py-4">{loc.location6}</td>
+                  <td className="px-6 py-4">{act.groupName}</td>
+                  <td className="px-6 py-4">{act.activityName}</td>
+                  <td className="px-6 py-4">{act.units}</td>
                 </tr>
               ))
             )}
