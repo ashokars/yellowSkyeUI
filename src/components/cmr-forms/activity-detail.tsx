@@ -210,8 +210,8 @@ export default function ActivityDetailForm({ onSubmit }: Iprops) {
       <div className="flex items-center justify-center">
         <img
           className="rounded-lg w-2/3  object-contain"
-          src="/assets/images/cost_location.svg"
-          alt="drone monitoring"
+          src="/assets/images/activity.svg"
+          alt="activity"
         ></img>
       </div>
     </div>
