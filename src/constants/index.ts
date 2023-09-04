@@ -4,3 +4,11 @@ export const API_CONSTANTS = {
   location: "/api/location",
   stage: "/api/stages"
 };
+
+export enum MonitoringFrequency {
+  Daily,
+  Weekly,
+  Fortnightly,
+  Monthly,
+  Quarterly
+}
