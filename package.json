@@ -22,9 +22,11 @@
     "eslint-config-next": "13.4.13",
     "fs": "^0.0.1-security",
     "js-cookie": "^3.0.5",
+    "lodash": "^4.17.21",
     "next": "13.4.13",
     "papaparse": "^5.4.1",
     "postcss": "8.4.27",
+    "primereact": "^9.6.2",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-papaparse": "^4.1.0",
@@ -33,6 +35,7 @@
   },
   "devDependencies": {
     "@types/js-cookie": "^3.0.3",
+    "@types/lodash": "^4.14.197",
     "@types/papaparse": "^5.3.8"
   }
 }
