@@ -10,6 +10,8 @@ import { API_CONSTANTS } from "@/constants";
 import { useParams } from "next/navigation";
 import { createChildrenPath, replaceAllObjKeys } from "@/utils";
 import FieldMappingPreview from "./field-mapping-preview";
+import { useLazyAxios } from "@/hooks";
+import Spinner from "../spinner";
 
 interface Iprops {
   onSubmit: (step: string, file: any) => void;
@@ -53,14 +55,38 @@ export default function FieldMappingForm({ onSubmit }: Iprops) {
     method: "GET",
   });
 
+  //For inserting mapped records
+  const [
+    insertMapping,
+    { loading: loading3, error: error3, data: mappedData },
+  ] = useLazyAxios({
+    url: `${API_CONSTANTS.location}/fieldmap`,
+    method: "POST",
+  });
+
+  //For fetching mapped records
+  const {
+    loading: loading4,
+    error: error4,
+    data: fieldMapRaw,
+  } = useAxios({
+    url: `${API_CONSTANTS.location}/fieldmap/${params.id}`,
+    method: "GET",
+  });
+
+  const getLoaderStatus = () =>{
+    return loading || loading2 || loading3 || loading4;
+  }
+
   const addCurrentMapping = () => {
     let obj: any = { ...fieldMap };
     let locKeys = Object.keys(selectedLocationKeys);
     let actKeys = Object.keys(selectedActivityKeys);
-    actKeys.forEach(
-      (k) =>
-        obj[k] && obj[k].length ? (obj[k] = locKeys) : (obj[k] = [...locKeys]) //pending
-    );
+    actKeys.forEach((k) =>
+      obj[k] && obj[k].length
+        ? (obj[k] = [...obj[k], ...locKeys])
+        : (obj[k] = locKeys)
+    ); //pending
     setFieldMap({ ...obj });
     clearSelections();
   };
@@ -75,8 +101,13 @@ export default function FieldMappingForm({ onSubmit }: Iprops) {
 
   const submitMapping = () => {
     let constructedPayload = [];
-    console.log(fieldMap);
-    // Object.keys(o=>)
+    constructedPayload = Object.entries(fieldMap).map(([k, v]: [any, any]) => {
+      return {
+        activityId: +k,
+        locationsId: v.map((l: any) => +l),
+      };
+    });
+    insertMapping({ projectId: params.id, fieldMap: constructedPayload });
   };
 
   const onNext = () => {
@@ -116,93 +147,113 @@ export default function FieldMappingForm({ onSubmit }: Iprops) {
     }
   }, [stageRaw]);
 
+  useEffect(() => {
+    if (fieldMapRaw) {
+      setReadOnly(true);
+      setFieldMap(fieldMapRaw);
+    }
+  }, [fieldMapRaw]);
+
+  useEffect(() => {
+    if (mappedData) onSubmit("fieldMapping", null);
+  }, [mappedData]);
+
+  if(getLoaderStatus()){
+    return(<Spinner size="large" position="center"/>)
+  }
+
   return (
     <>
-      <div className="grid md:grid-cols-3 grid-cols-1 gap-4 pt-6">
-        <div>
-          <div className="card flex justify-content-center">
-            <TreeSelect
-              filter={true}
-              scrollHeight="200px"
-              value={selectedLocationKeys}
-              onChange={(e: any) => setSelectedLocationKeys(e.value)}
-              options={location}
-              metaKeySelection={false}
-              className="text-xs md:w-20rem w-full"
-              panelClassName="text-xs"
-              panelStyle={{ padding: 0 }}
-              selectionMode="multiple"
-              placeholder="Select Locations"
-            ></TreeSelect>
+      {!readOnly ? (
+        <div className="grid md:grid-cols-3 grid-cols-1 gap-4 pt-6">
+          <div>
+            <div className="card flex justify-content-center">
+              <TreeSelect
+                filter={true}
+                scrollHeight="200px"
+                value={selectedLocationKeys}
+                onChange={(e: any) => setSelectedLocationKeys(e.value)}
+                options={location}
+                metaKeySelection={false}
+                className="text-xs md:w-20rem w-full"
+                panelClassName="text-xs"
+                panelStyle={{ padding: 0 }}
+                selectionMode="multiple"
+                placeholder="Select Locations"
+              ></TreeSelect>
+            </div>
+          </div>
+          <div>
+            <div className="card flex justify-content-center">
+              <TreeSelect
+                filter={true}
+                scrollHeight="200px"
+                value={selectedActivityKeys}
+                onChange={(e: any) => setSelectedActivityKeys(e.value)}
+                options={activity}
+                metaKeySelection={false}
+                className="text-xs md:w-20rem w-full"
+                panelClassName="text-xs"
+                panelStyle={{ padding: 0 }}
+                selectionMode="multiple"
+                placeholder="Select Activity"
+              ></TreeSelect>
+            </div>
+          </div>
+          <div>
+            <button
+              type="button"
+              onClick={() => addCurrentMapping()}
+              className="text-white bg-[#228DBB] hover:bg-[#1f6d8f] transition duration-150 ease-in-out focus:outline-none font-medium rounded-lg text-sm p-2.5 text-center inline-flex items-center mr-2"
+            >
+              <svg
+                className="w-5 h-5 text-white"
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 20 20"
+              >
+                <path
+                  stroke="currentColor"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M10 5.757v8.486M5.757 10h8.486M19 10a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
+                />
+              </svg>
+              <span className="sr-only">Add</span>
+            </button>
+            <button
+              type="button"
+              onClick={() => clearSelections()}
+              className="text-white bg-gray-400 hover:bg-gray-600 transition duration-150 ease-in-out focus:outline-none font-medium rounded-lg text-sm p-2.5 text-center inline-flex items-center mr-2"
+            >
+              <svg
+                className="w-5 h-5 text-white"
+                aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 20 20"
+              >
+                <path
+                  stroke="currentColor"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="m13 7-6 6m0-6 6 6m6-3a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
+                />
+              </svg>
+              <span className="sr-only">Clear</span>
+            </button>
           </div>
         </div>
-        <div>
-          <div className="card flex justify-content-center">
-            <TreeSelect
-              filter={true}
-              scrollHeight="200px"
-              value={selectedActivityKeys}
-              onChange={(e: any) => setSelectedActivityKeys(e.value)}
-              options={activity}
-              metaKeySelection={false}
-              className="text-xs md:w-20rem w-full"
-              panelClassName="text-xs"
-              panelStyle={{ padding: 0 }}
-              selectionMode="multiple"
-              placeholder="Select Activity"
-            ></TreeSelect>
-          </div>
-        </div>
-        <div>
-          <button
-            type="button"
-            onClick={() => addCurrentMapping()}
-            className="text-white bg-[#228DBB] hover:bg-[#1f6d8f] transition duration-150 ease-in-out focus:outline-none font-medium rounded-lg text-sm p-2.5 text-center inline-flex items-center mr-2"
-          >
-            <svg
-              className="w-5 h-5 text-white"
-              aria-hidden="true"
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 20 20"
-            >
-              <path
-                stroke="currentColor"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M10 5.757v8.486M5.757 10h8.486M19 10a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
-              />
-            </svg>
-            <span className="sr-only">Add</span>
-          </button>
-          <button
-            type="button"
-            onClick={() => clearSelections()}
-            className="text-white bg-gray-400 hover:bg-gray-600 transition duration-150 ease-in-out focus:outline-none font-medium rounded-lg text-sm p-2.5 text-center inline-flex items-center mr-2"
-          >
-            <svg
-              className="w-5 h-5 text-white"
-              aria-hidden="true"
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 20 20"
-            >
-              <path
-                stroke="currentColor"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="m13 7-6 6m0-6 6 6m6-3a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
-              />
-            </svg>
-            <span className="sr-only">Clear</span>
-          </button>
-        </div>
-      </div>
+      ) : (
+        <></>
+      )}
       <div className="pt-4">
         <FieldMappingPreview
           {...{
+            readOnly,
             fieldMap,
             activityMap,
             locationMap,

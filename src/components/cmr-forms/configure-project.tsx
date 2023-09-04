@@ -1,6 +1,5 @@
 import { API_CONSTANTS } from "@/constants";
 import { useAxios, useLazyAxios } from "@/hooks";
-import { data } from "autoprefixer";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import Spinner from "../spinner";
@@ -22,7 +21,7 @@ const classNames = {
 export default function ConfigureProjectForm({ onSubmit }: Iprops) {
   //get params and fetch data
   const params = useParams();
-  const {setProjectName} = useCmrContext();
+  const {setProjectName, setCmrId} = useCmrContext();
   const {
     data: project,
     loading,
@@ -52,8 +51,8 @@ export default function ConfigureProjectForm({ onSubmit }: Iprops) {
   useEffect(() => {
     if (project) {
       //set values to context and initiate local state
-      console.log(project);
       setProjectName(project?.projectName );
+      setCmrId(project?.cmr?.id);
       const defaultValue = {
         projectName: project?.projectName || "",
         location: project?.location || "",
@@ -83,7 +82,6 @@ export default function ConfigureProjectForm({ onSubmit }: Iprops) {
     const { projectName, location, ...payload } = formValue;
     let validated = true;
     (Object.keys(payload) as (keyof typeof payload)[]).forEach((key, index) => {
-      console.log(key, payload[key], index);
       if (
         payload[key] === "" ||
         payload[key] == null ||

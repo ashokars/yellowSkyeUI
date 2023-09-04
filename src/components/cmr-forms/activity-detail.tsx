@@ -38,7 +38,6 @@ export default function ActivityDetailForm({ onSubmit }: Iprops) {
   });
 
   useEffect(() => {
-    console.log(activity);
     if (activity?.length) {
       setPreview(true);
       setReadOnly(true);

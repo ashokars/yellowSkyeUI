@@ -3,6 +3,7 @@ import { Key } from "react";
 interface Iprops {
   fieldMap: any;
   locationMap: any[];
+  readOnly: boolean;
   activityMap: any[];
   removeMapping: (locId: any, actId: any) => void;
 }
@@ -11,9 +12,9 @@ export default function FieldMappingPreview({
   fieldMap,
   locationMap,
   activityMap,
+  readOnly,
   removeMapping,
 }: Iprops) {
-  console.log(locationMap);
   return (
     <div className="relative overflow-x-auto">
       <table className="w-full text-sm text-left text-gray-500">
@@ -38,7 +39,7 @@ export default function FieldMappingPreview({
                               className="px-2 py-1 mr-2 text-xs text-gray-800 bg-gray-100 rounded"
                             >
                               {locationMap[loc]}
-                              <button
+                              {!readOnly?<button
                                 onClick={() => removeMapping(loc, activity)}
                                 type="button"
                                 className="inline-flex items-center p-1 ml-2 text-sm text-gray-400 bg-transparent rounded-sm hover:bg-gray-200 hover:text-gray-900"
@@ -61,7 +62,7 @@ export default function FieldMappingPreview({
                                   />
                                 </svg>
                                 <span className="sr-only">Remove badge</span>
-                              </button>
+                              </button>:<></>}
                             </span>
                           </div>
                         );
