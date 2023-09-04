@@ -7,7 +7,7 @@ class HttpService {
 
   private createInstance() {
     const http = axios.create({
-      baseURL: 'http://localhost:4000',
+      baseURL: 'https://funny-kimono-bear.cyclic.app',
       withCredentials: false,
     });
     http.interceptors.request.use((config: any) => {
