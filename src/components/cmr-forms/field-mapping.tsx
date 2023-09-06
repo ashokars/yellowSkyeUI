@@ -148,7 +148,7 @@ export default function FieldMappingForm({ onSubmit }: Iprops) {
   }, [stageRaw]);
 
   useEffect(() => {
-    if (fieldMapRaw) {
+    if (fieldMapRaw && Object.keys(fieldMapRaw).length) {
       setReadOnly(true);
       setFieldMap(fieldMapRaw);
     }
