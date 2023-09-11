@@ -17,12 +17,12 @@ export default function TimelinesQuantitiesForm({ onSubmit }: Iprops) {
 
   const proceedForm = (step: string, file: any) => {
     switch (step) {
-      case "costDetail":
-        setCurrentStep(2);
-        setFiles({ ...files, costWeightage: file });
-        break;
       case "quantitiesDetail":
         setFiles({ ...files, quantitiesDetail: file });
+        setCurrentStep(2)
+        break;
+      case "costDetail":
+        setFiles({ ...files, costWeightage: file });
         break;
       default:
         break;
@@ -32,9 +32,9 @@ export default function TimelinesQuantitiesForm({ onSubmit }: Iprops) {
   const ConditionalFormRendering = () => {
     switch (currentStep) {
       case 1:
-        return <CostDetailForm onSubmit={proceedForm} />;
-      case 2:
         return <QuantitiesDetailForm onSubmit={proceedForm} />;
+      case 2:
+        return <CostDetailForm onSubmit={proceedForm} />;
       default:
         <h1>Invalid step</h1>;
         break;
@@ -55,11 +55,11 @@ export default function TimelinesQuantitiesForm({ onSubmit }: Iprops) {
         Project plan
       </h2>
       <div className="flex flex-wraptext-sm">
-        <div className="flex pb-2 lg:basis-1/6 md:basis-2/12 w-full">
-          <div className={getClasses(1)}>1. Cost details</div>
+      <div className="flex pb-2 lg:basis-2/6 md:basis-4/12 w-full">
+          <div className={getClasses(1)}>1. Project plan and quantities</div>
         </div>
-        <div className="flex pb-2 lg:basis-2/6 md:basis-4/12 w-full">
-          <div className={getClasses(2)}>2. Project plan and quantities</div>
+        <div className="flex pb-2 lg:basis-1/6 md:basis-2/12 w-full">
+          <div className={getClasses(2)}>2. Cost details</div>
         </div>
       </div>
       {ConditionalFormRendering()}

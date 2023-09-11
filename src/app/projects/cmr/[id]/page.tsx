@@ -3,9 +3,7 @@ import FloatNav from "@/components/admin/floatnav";
 import ConfigureProjectForm from "@/components/cmr-forms/configure-project";
 import LocationActivityForm from "@/components/cmr-forms/location-activity";
 import TimelinesQuantitiesForm from "@/components/cmr-forms/timelines-quantities";
-import { useCmrContext } from "@/context";
 import { CmrContextProvider } from "@/context/cmrContext";
-import { useParams } from "next/navigation";
 import { useState } from "react";
 
 export default function CMR() {

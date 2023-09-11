@@ -70,7 +70,7 @@ export default function FieldMappingForm({ onSubmit }: Iprops) {
     error: error4,
     data: fieldMapRaw,
   } = useAxios({
-    url: `${API_CONSTANTS.location}/fieldmap/${params.id}`,
+    url: `${API_CONSTANTS.location}/fieldmap/activity/${params.id}`,
     method: "GET",
   });
 
